@@ -9,6 +9,7 @@
 // This Project
 #include "PP6FourVector.hpp"
 #include "PP6Math.hpp"
+#include "PP6Day3MuonAnalysis.hpp"
 
 FourVector* userCreateFourVector()
 {
@@ -45,7 +46,9 @@ void pp6day3_menu() {
     std::cout << "1)  Create a FourVector and calculate its interval" << std::endl;
     std::cout << "2)  Create and Boost a FourVector" << std::endl;
     std::cout << "3)  Add two FourVectors" << std::endl;
-    std::cout << "4)  Determine if a given FourVector is space/timelike" << std::endl;
+    std::cout << "4)  Analyse input files for muon pairs (Day 3 version)"
+              << std::endl;
+    std::cout << "5)  Determine if a given FourVector is space/timelike" << std::endl;
     std::cout << "q)  Quit" << std::endl;
     std::cout << ">> ";
 
@@ -103,12 +106,17 @@ void pp6day3_menu() {
     }
     else if (op == '4')
     {
+      resultCode = pp6day3_muonanalysis();
+    }
+    else if (op == '5')
+    {
       // Read in the four vector
       iV = userCreateFourVector();
       FourVector::CausalType oT = iV->getCausalType();
       std::cout << "[result]: v " << iV->asString() << " is " << asString(oT) << std::endl;
       destroyFourVector(iV);
     }
+
     else
     {
       std::cerr << "[error] Operation '" << op << "' not recognised."
