@@ -7,8 +7,53 @@
 // Standard Library
 #include <string>
 
-//! FourVector structure
-struct FourVector;
+//! FourVector class
+class FourVector {
+ public:
+  //! constants and typedefs
+  static const double c;
+  static const double c2;
+
+  //! Causal structure enum
+  enum CausalType {
+    TIMELIKE = 0,
+    SPACELIKE,
+    LIGHTLIKE
+  };
+
+ public: // we can use access specifiers as many times as we like
+         // it's usually best to use this to break things up by
+         // function, e.g. constants/typedefs first, then member functions
+         // then member variables
+  //! return the interval of the vector
+  double interval() const;
+
+  //! boost the vector along the z-axis [1]
+  int boost_z(const double velocity);
+
+  //! return the causal type of the vector
+  CausalType getCausalType() const;
+
+  //! return a string representation of this vector
+  std::string asString() const;
+
+ public:
+  //! member variables
+  double t;
+  double x;
+  double y;
+  double z;
+};
+
+/*
+ * [1] There are several design choices here, boost_z could be:
+ * - a const member function, returning a boosted copy of the original
+ * - a non-const member function, modifying the original (as shown)
+ * - a free function taking a const FourVector and returning a boosted copy
+ * - a free function taking a ref. to a FourVector and boosting it
+ */
+
+// We can keep the following free functions simply for convenience
 
 //! Default Create a new FourVector instance
 FourVector* createFourVector();
@@ -20,14 +65,8 @@ FourVector* createFourVector(const double t, const double x, const double y,
 //! Destroy a FourVector instance, nulling the supplied pointer
 void destroyFourVector(FourVector *&p);
 
-//! compute interval of four vector
-double interval(const FourVector* v);
-
-//! boost four vector in z direction
-int boost_z(FourVector* v, const double velocity);
-
-//! convert a FourVector to a string representation
-std::string asString(const FourVector* v);
+//! convert a CausalType to a string representation
+std::string asString(const FourVector::CausalType k);
 
 #endif // PP6FOURVECTOR_HH
 
