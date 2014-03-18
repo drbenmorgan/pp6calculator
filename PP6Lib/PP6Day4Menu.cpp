@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <limits>
 
 // Third party
 #include "FileReader.hpp"
