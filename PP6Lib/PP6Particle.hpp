@@ -5,6 +5,7 @@
 #define PP6PARTICLE_HPP
 
 #include <string>
+#include <vector>
 
 #include "PP6FourVector.hpp"
 #include "PP6ThreeVector.hpp"
@@ -43,5 +44,6 @@ class Particle {
 };
 
 double calculate_invariant_mass(const Particle& first, const Particle& second);
+double calculate_invariant_mass(const std::vector<Particle>& particles);
 
 #endif // PP6PARTICLE_HPP

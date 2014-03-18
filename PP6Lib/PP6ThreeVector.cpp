@@ -201,8 +201,9 @@ std::istream& operator>>(std::istream& in, ThreeVector& vec)
   // NB: As we use setX(), setY(), setZ() we call compute_length() 
   // three times! Whilst that's not great, it avoids having the streaming
   // operator as a friend of ThreeVector...
+  std::string dummy;
   double x(0), y(0), z(0);
-  in >> x >> y >> z;
+  in >> dummy >> x >> dummy >> y >> dummy >> z >> dummy;
   vec.setX(x);
   vec.setY(y);
   vec.setZ(z);
@@ -211,7 +212,7 @@ std::istream& operator>>(std::istream& in, ThreeVector& vec)
 
 std::ostream& operator<<(std::ostream& out, const ThreeVector& vec)
 {
-  out << "(" << vec.getX() << ", " << vec.getY() << ", " << vec.getZ() << ")";
+  out << "( " << vec.getX() << " , " << vec.getY() << " , " << vec.getZ() << " )";
   return out;
 }
 

@@ -200,18 +200,18 @@ std::string asString(const FourVector::CausalType k)
 //
 std::istream& operator>>(std::istream& in, FourVector& vec) // Could also be a friend function [1]
 {
-  double x(0.0), y(0.0), z(0.0), t(0.0);
-  in >> t >> x >> y >> z;
+  double t(0.0);
+  ThreeVector p3;
+  std::string dummy;
+  in >> dummy >> t >> dummy >> p3 >> dummy;
   vec.setT(t);
-  vec.setX(x);
-  vec.setY(y);
-  vec.setZ(z);
+  vec.setThreeVector(p3);
   return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const FourVector& vec)
 {
-  out << "(" << vec.getT() << ", " << vec.getThreeVector() << ")";
+  out << "( " << vec.getT() << " , " << vec.getThreeVector() << " )";
   return out;
 }
 

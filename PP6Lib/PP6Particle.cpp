@@ -66,3 +66,15 @@ double calculate_invariant_mass(const Particle& first, const Particle& second)
   FourVector p_tot = p1 + p2;
   return sqrt(p_tot.interval());
 }
+
+double calculate_invariant_mass(const std::vector<Particle>& particles)
+{
+  FourVector p_tot;
+  std::vector<Particle>::const_iterator iter = particles.begin();
+  const std::vector<Particle>::const_iterator end = particles.end();
+  for ( ; iter != end; ++iter ) {
+    p_tot += iter->getFourMomentum();
+  }
+  return sqrt(p_tot.interval());
+}
+
