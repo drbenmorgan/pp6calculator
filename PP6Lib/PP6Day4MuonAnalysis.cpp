@@ -265,7 +265,7 @@ int pp6day4_muonanalysis() {
   InvMass::InvMassTable::iterator imIter = invMasses.begin();
   InvMass::InvMassTable::iterator imStop = invMasses.end();
 
-  for (size_t i(0) ; imIter != imStop, i < 10 ; ++imIter, ++i) {
+  for (size_t i(0) ; imIter != imStop && i < 10 ; ++imIter, ++i) {
     std::cout << "{InvariantMass : " << (*imIter).first 
               << ",\n\t"
               << (*imIter).second.first 
