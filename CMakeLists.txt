@@ -60,6 +60,9 @@ install(TARGETS pp6calculator DESTINATION bin)
 # - Copy PDG text DB to build directory so it's immediately available
 configure_file(pdg.dbt ${PROJECT_BINARY_DIR}/pdg.dbt COPYONLY)
 
+# - Copy list of particles text file to build directory so it's immediately available
+configure_file(particles.dat ${PROJECT_BINARY_DIR}/particles.dat COPYONLY)
+
 # - Package pp6calculator sources and executable
 include(CPack)
 
