@@ -95,12 +95,11 @@ int countParticles(const std::string& inputFile, const std::string& particle,
   return 0;
 }
   
-//! create EventArray of known particles matching a specific PDG name
-// and runID. 
+//! create EventArray of known particles matching a specific PDG name and runID. 
 EventArray* createParticles(const std::string& inputFile,
                             const size_t knownNumber, 
                             const std::string& particle, 
-                            const double mass, const std::string& runId) {
+                            const std::string& runId) {
   // Create a filereader and check its validity
   FileReader counter(inputFile);
   if (!counter.isValid()) {
@@ -179,7 +178,7 @@ EventArray* createParticles(const std::string& inputFile,
         // EventArray
         pdgCode = getPDGCode(particle);
         (pEA->ids)[currentParticle] = eventId;
-        (pEA->particles)[currentParticle] = Particle(pdgCode, mass, px, py, pz);
+        (pEA->particles)[currentParticle] = Particle(pdgCode, px, py, pz);
         ++currentParticle;
       }
     }
@@ -188,11 +187,10 @@ EventArray* createParticles(const std::string& inputFile,
   return pEA;
 }
   
-//! read particles matching a specific PDG name and run id from supplied
-//  file. Must supply particle mass ourselves...
+//! read particles matching a specific PDG name and run id from supplied file.
 EventArray* readParticles(const std::string& file, 
                           const std::string& particle, 
-                          const double mass, const std::string& runId) {
+                          const std::string& runId) {
   
   int resultCode(0);
   size_t numberOf(0); 
@@ -206,7 +204,7 @@ EventArray* readParticles(const std::string& file,
 
   // With number of particles known, create the appropriately sized
   // EventArray and fill it
-  return createParticles(file, numberOf, particle, mass, runId);
+  return createParticles(file, numberOf, particle, runId);
 }
 
 
@@ -220,9 +218,8 @@ int pp6day3_muonanalysis() {
 
   // Create EventArrays of muons/antimuons in input file
   std::string runID("run4.dat");
-  double muonMass = 0.105658366; // GeV
-  EventArray* p = readParticles(muonFile, "mu-", muonMass, runID);
-  EventArray* q = readParticles(muonFile, "mu+", muonMass, runID);
+  EventArray* p = readParticles(muonFile, "mu-", runID);
+  EventArray* q = readParticles(muonFile, "mu+", runID);
 
   // Create an array of suffcient size to hold the invariant masses
   // formed between each muon/antimuon pair, plus an array

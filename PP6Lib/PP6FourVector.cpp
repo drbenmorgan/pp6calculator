@@ -148,6 +148,7 @@ std::string FourVector::asString() const
 
 void FourVector::compute_interval()
 {
+  // interval s^2 = (ct)^2 - (x^2 + y^2 + z^2)
   s_ = c2*t_*t_ - x_.length()*x_.length();
 }
 
@@ -197,7 +198,7 @@ std::string asString(const FourVector::CausalType k)
 
 //----------------------------------------------------------------------
 // Free operators
-//
+
 std::istream& operator>>(std::istream& in, FourVector& vec) // Could also be a friend function [1]
 {
   double t(0.0);

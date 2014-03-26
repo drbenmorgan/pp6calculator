@@ -12,7 +12,11 @@
 
 //! FourVector class
 class FourVector {
- public:
+ public: // we can use access specifiers as many times as we like
+         // it's usually best to use this to break things up by
+         // function, e.g. constants/typedefs first, then member functions
+         // then member variables
+
   //! Causal structure enum
   enum CausalType {
     TIMELIKE = 0,
@@ -20,10 +24,6 @@ class FourVector {
     LIGHTLIKE
   };
 
- public: // we can use access specifiers as many times as we like
-         // it's usually best to use this to break things up by
-         // function, e.g. constants/typedefs first, then member functions
-         // then member variables
   //! Default constructor
   FourVector();
 

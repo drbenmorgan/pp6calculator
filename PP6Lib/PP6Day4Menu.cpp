@@ -3,11 +3,11 @@
 #include "PP6Day4Menu.hpp"
 
 // Standard Library
-#include <iostream>
-#include <vector>
 #include <algorithm>
+#include <iostream>
 #include <iterator>
 #include <limits>
+#include <vector>
 
 // Third party
 #include "FileReader.hpp"
@@ -96,7 +96,7 @@ int pp6day4_check_particleinfo() {
   dbtFilename = getString();
 
   // Open the ParticleInfo with supplied file
-  ParticleInfo dataBase(dbtFilename);
+  const ParticleInfo& dataBase = ParticleInfo::Instance(dbtFilename);
 
   // Check it has entries
   std::cout << "Checking ParticleInfo contains entries... ";
