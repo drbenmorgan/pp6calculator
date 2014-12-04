@@ -7,9 +7,37 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 # - Declare the project
 project(pp6calculator)
 
-# - Use standard flag set when using the GNU compiler
-if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "-std=c++98 -pedantic-errors -Wall -Wextra -Werror -Wfatal-errors -Wwrite-strings -Woverloaded-virtual -fno-nonansi-builtins -fno-gnu-keywords -fstrict-aliasing")
+# - Use standard flag set when using the GNU/Clang compiler
+# Use CMake builtin to check for available flags
+# run "cmake --help-module CheckCXXCompilerFlag" for more information
+include(CheckCXXCompilerFlag)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  # Set default flag set for GNU/Clang
+  set(CMAKE_CXX_FLAGS "-pedantic-errors -Wall -Wextra -Werror -Wfatal-errors -Wwrite-strings -Woverloaded-virtual  -fno-gnu-keywords -fstrict-aliasing")
+
+  # Extra GNU only flag
+  if(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-nonansi-builtins")
+  endif()
+
+  # Check for libc++ which it's best to use on Apple
+  check_cxx_compiler_flag(-stdlib=libc++ HAS_LIBCXX)
+  if(HAS_LIBCXX AND APPLE)
+    set(CMAKE_CXX_FLAGS "-stdlib=libc++ ${CMAKE_CXX_FLAGS}")
+  endif()
+
+  # - Check for and use best available standard up to C++11
+  check_cxx_compiler_flag(-std=c++11 HAS_GNUSTYLE_CPP11)
+  check_cxx_compiler_flag(-std=c++0x HAS_GNUSTYLE_CPP0X)
+
+  if(HAS_GNUSTYLE_CPP11)
+    set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+  elseif(HAS_GNUSTYLE_CPP0X)
+    set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+  else()
+    set(CMAKE_CXX_FLAGS "-std=c++98 ${CMAKE_CXX_FLAGS}")
+  endif()
 endif()
 
 # - Tell compiler where to find headers
